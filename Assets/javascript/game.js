@@ -1,19 +1,28 @@
 var letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p', 'q','r','s','t','u','v','w','x','y','z'];
-var wins = 0
-var losses = 0
-var chances = 9
-var guesses = []
+var wins = 0;
+var losses = 0;
+var chances = 9;
+var guesses = [];
 
 var index = letters[Math.floor(Math.random() * letters.length)];
 function getAnswer() {
-    var a = document.querySelector("#input").value;
-    checkAnswer(a)
+    var a = document.querySelector("#input").value.toLowerCase();
+    if (a.length == 1 && letters.includes(a)) {
+        checkAnswer(a)
+    }
+    else if (a.length > 1 || a.length == 0){
+        alert("You must specify just one value!")
+        document.querySelector("#input").value = "";
+    }
+    else {
+        alert("You must specify a STRING value!")
+        document.querySelector("#input").value = "";
+    }
 }
 function askAnswer(){
     document.querySelector(".btn").addEventListener("click", getAnswer);
 }
 function checkAnswer(x) {
-        console.log(index, x);
         if (x === index) {
             wins++;
             document.querySelector("#wins").innerHTML = "Wins: " + wins;
