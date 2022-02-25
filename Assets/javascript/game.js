@@ -5,15 +5,17 @@ var chances = 9;
 var guesses = [];
 
 var index = letters[Math.floor(Math.random() * letters.length)];
-console.log(index)
 function getAnswer(a) {
     // var a = document.querySelector("#input").value.toLowerCase();
-    if (letters.includes(a)) {
-        checkAnswer(a)
+    if (letters.includes(a) && !guesses.includes(a)) {
+        checkAnswer(a);
     }
     else if (a.length > 1 || !letters.includes(a) /*|| a.length == 0*/){
-        alert("You must specify just one string value!")
+        alert("You must specify just one string value!");
         // document.querySelector("#input").value = "";
+    }
+    else if (guesses.includes(a)) {
+        alert("This letter was given. Please specify a different string value!");
     }
     // else {
     //     alert("You must specify a STRING value!")
@@ -23,25 +25,25 @@ function getAnswer(a) {
 function askAnswer(){
     // document.querySelector(".btn").addEventListener("click", getAnswer);
     document.onkeyup = function(event){
-    getAnswer(event.key.toLowerCase())
+    getAnswer(event.key.toLowerCase());
 }
 }
 function checkAnswer(x) {
         if (x === index) {
             wins++;
             document.querySelector("#wins").innerHTML = "Wins: " + wins;
-            alert("You Won!")
+            alert("You Won! The letter was " + x + "!");
             restart();
         }
         else if (x !== index) {
             chances--;
             document.querySelector("#guessesLeft").innerHTML = "Guesses Left: " + chances;
-            guesses.push(x)
+            guesses.push(x);
             document.querySelector("#guesses").innerHTML = "Your Guesses so far: " + guesses.join(" ");
             if (chances == 0) {
                 losses++;
                 document.querySelector("#losses").innerHTML = "Losses: " + losses;
-                alert("Your chances ran out! You Lost!")
+                alert("Your chances ran out! You Lost! The letter was " + x + "!");
                 restart();
             }
             else {
@@ -52,11 +54,11 @@ function checkAnswer(x) {
 }
 function restart() {
     index = letters[Math.floor(Math.random() * letters.length)];
-    chances = 9
+    chances = 9;
     document.querySelector("#guessesLeft").innerHTML = "Guesses Left: " + chances;
     guesses = [];
     document.querySelector("#guesses").innerHTML = "Your Guesses so far: " + guesses;
-    askAnswer()
+    askAnswer();
 }
 askAnswer();
 
