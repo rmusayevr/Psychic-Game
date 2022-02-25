@@ -5,22 +5,26 @@ var chances = 9;
 var guesses = [];
 
 var index = letters[Math.floor(Math.random() * letters.length)];
-function getAnswer() {
-    var a = document.querySelector("#input").value.toLowerCase();
-    if (a.length == 1 && letters.includes(a)) {
+console.log(index)
+function getAnswer(a) {
+    // var a = document.querySelector("#input").value.toLowerCase();
+    if (letters.includes(a)) {
         checkAnswer(a)
     }
-    else if (a.length > 1 || a.length == 0){
-        alert("You must specify just one value!")
-        document.querySelector("#input").value = "";
+    else if (a.length > 1 || !letters.includes(a) /*|| a.length == 0*/){
+        alert("You must specify just one string value!")
+        // document.querySelector("#input").value = "";
     }
-    else {
-        alert("You must specify a STRING value!")
-        document.querySelector("#input").value = "";
-    }
+    // else {
+    //     alert("You must specify a STRING value!")
+    //     document.querySelector("#input").value = "";
+    // }
 }
 function askAnswer(){
-    document.querySelector(".btn").addEventListener("click", getAnswer);
+    // document.querySelector(".btn").addEventListener("click", getAnswer);
+    document.onkeyup = function(event){
+    getAnswer(event.key.toLowerCase())
+}
 }
 function checkAnswer(x) {
         if (x === index) {
@@ -44,7 +48,7 @@ function checkAnswer(x) {
                 askAnswer();
             }
         }
-        document.querySelector("#input").value = "";
+        // document.querySelector("#input").value = "";
 }
 function restart() {
     index = letters[Math.floor(Math.random() * letters.length)];
@@ -54,7 +58,6 @@ function restart() {
     document.querySelector("#guesses").innerHTML = "Your Guesses so far: " + guesses;
     askAnswer()
 }
-
 askAnswer();
 
 
